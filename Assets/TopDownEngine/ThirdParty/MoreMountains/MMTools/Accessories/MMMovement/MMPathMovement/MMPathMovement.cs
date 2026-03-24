@@ -112,7 +112,7 @@ namespace MoreMountains.Tools
 		/// <summary>
 		/// Flag inits, initial movement determination, and object positioning
 		/// </summary>
-		protected virtual void Initialization()
+		public virtual void Initialization()
 		{
 			// on Start, we set our active flag to true
 			_active=true;
