@@ -5,99 +5,61 @@ using UnityEngine;
 
 public class Generador : MonoBehaviour
 {
-    [Header("Configuración de Spawn")]
     public GameObject enemyPrefab;
-    public float spawnInterval = 3f;
-
-    [Header("Referencias")]
+    public float spawnInterval = 3f; // Intervalo en segundos
     public WaveManager waveManager;
 
-    private MMPathMovement _generatorMovement;
-    private Coroutine _spawnLoop;
+    private Coroutine spawnCoroutine;
 
     void Start()
     {
-        _generatorMovement = GetComponent<MMPathMovement>();
-
         if (waveManager == null)
+        {
             waveManager = Object.FindAnyObjectByType<WaveManager>();
+        }
 
-        _spawnLoop = StartCoroutine(SpawnRoutine());
+        // Iniciamos la rutina una sola vez al comenzar
+        spawnCoroutine = StartCoroutine(SpawnRoutine());
     }
 
+    // Eliminamos FixedUpdate porque la corrutina gestiona su propio tiempo
     IEnumerator SpawnRoutine()
     {
-        while (true)
+        while (true) // Bucle infinito mientras el objeto exista
         {
             yield return new WaitForSeconds(spawnInterval);
-            SpawnEnemy();
+            SpawnEnemy(enemyPrefab);
         }
     }
 
-    void SpawnEnemy()
+    void SpawnEnemy(GameObject prefab)
     {
-        if (enemyPrefab == null || _generatorMovement == null) return;
+        Vector3 startPos = waveManager.rutaPath.transform.position;
 
-        // 1. Instanciamos el enemigo en la posición actual del generador
-        GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        GameObject enemy = Instantiate(prefab, startPos, Quaternion.identity);
+        Character character = enemy.GetComponent<Character>();
 
-        // 2. Obtenemos el componente de movimiento
-        MMPathMovement enemyMovement = enemy.GetComponent<MMPathMovement>();
+        MMPathMovement pathMovement = enemy.GetComponent<MMPathMovement>();
 
-        if (enemyMovement != null)
+        if (pathMovement != null)
         {
-            // HERENCIA DE RUTA: 
-            // Copiamos la lista completa de puntos del generador al enemigo
-            // Usamos una nueva lista para no modificar la del generador por referencia
-            enemyMovement.PathElements = new System.Collections.Generic.List<MMPathElement>(_generatorMovement.PathElements);
+            // 2. Asignamos la ruta
+            pathMovement.PathElements = waveManager.rutaPath.PathElements;
 
-            // SINCRONIZACIÓN: 
-            // Buscamos cuál es el punto de la ruta más cercano al generador ahora mismo
-            int indiceCercano = 0;
-            float distanciaMinima = float.MaxValue;
-
-            for (int i = 0; i < enemyMovement.PathElements.Count; i++)
-            {
-                float d = Vector3.Distance(transform.position, enemyMovement.PathElements[i].PathElementPosition);
-                if (d < distanciaMinima)
-                {
-                    distanciaMinima = d;
-                    indiceCercano = i;
-                }
-            }
-
-            // LIMPIEZA DE RUTA:
-            // Eliminamos de la lista del enemigo todos los puntos que el generador YA PASÓ.
-            // Así, para el enemigo, el "Punto 0" será el siguiente nodo en el camino.
-            for (int i = 0; i < indiceCercano; i++)
-            {
-                if (enemyMovement.PathElements.Count > 0)
-                {
-                    enemyMovement.PathElements.RemoveAt(0);
-                }
-            }
-
-            // INICIALIZACIÓN Y ACTIVACIÓN:
-            // Ahora que la ruta es solo "lo que falta por recorrer", inicializamos
-            enemyMovement.Initialization();
-            enemyMovement.MovementActive = true;
+            // 3. Forzamos la inicialización manual
+            pathMovement.Initialization();
         }
 
-        // 3. Configuración del Character (TopDown Engine)
-        Character character = enemy.GetComponent<Character>();
+        // 4. IMPORTANTE: Si es un Character de More Mountains, inicialízalo
         if (character != null)
         {
-            character.SetPlayerID("Enemy");
-            // Nos aseguramos de que el personaje esté en estado normal para moverse
-            if (character.ConditionState != null)
-            {
-                character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
-            }
+            character.SetPlayerID("Enemy"); // O el ID que uses
         }
     }
 
+    // Es buena práctica detener la corrutina si el generador muere
     private void OnDisable()
     {
-        if (_spawnLoop != null) StopCoroutine(_spawnLoop);
+        if (spawnCoroutine != null) StopCoroutine(spawnCoroutine);
     }
 }

@@ -61,7 +61,7 @@ public class WaveManager : MonoBehaviour
         if (pathMovement != null)
         {
             // 2. Asignamos la ruta
-            pathMovement.PathElements = rutaPath.PathElements;
+            pathMovement.PathElements = rutaPath.PathElements;       
         
             // 3. Forzamos la inicialización manual
             pathMovement.Initialization(); 
