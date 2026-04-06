@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -5348549944879492875}
   - component: {fileID: -742174504590446054}
   m_Layer: 13
-  m_Name: Enemy
+  m_Name: FastEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
   - PathElementPosition: {x: 0, y: 0, z: 0}
     Delay: 0
   AlignmentMode: 0
-  MovementSpeed: 3
+  MovementSpeed: 6
   AccelerationType: 0
   Acceleration:
     serializedVersion: 2
@@ -151,7 +151,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8, y: 0.8}
+    oldSize: {x: 1.5, y: 1.5}
     newSize: {x: 0.8, y: 0.8}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 605da1f57c674ac468d3237785cb8f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 100
+  maxHealth: 25
 --- !u!114 &-7987862841920567561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +259,7 @@ MonoBehaviour:
   InputAuthorized: 1
   AnalogInput: 0
   ScriptDrivenInput: 0
-  WalkSpeed: 6
+  WalkSpeed: 12
   ShouldSetMovement: 1
   IdleThreshold: 0.05
   Acceleration: 10
@@ -317,7 +317,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 20
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300004, guid: e8e3b7691aa7ca7458f64e04cb4830bf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2bdcc5376b8ef4540bfc87f41506ffcd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

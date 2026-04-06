@@ -49,28 +49,28 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-void SpawnEnemy(GameObject prefab)
-{
-    GameObject enemy = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
-
-    // 1. Obtenemos el componente Character (si lo tiene)
-    Character character = enemy.GetComponent<Character>();
-    
-    MMPathMovement pathMovement = enemy.GetComponent<MMPathMovement>();
-    
-    if (pathMovement != null)
+    void SpawnEnemy(GameObject prefab) 
     {
-        // 2. Asignamos la ruta
-        pathMovement.PathElements = rutaPath.PathElements;
+        GameObject enemy = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
+
+        // 1. Obtenemos el componente Character (si lo tiene)
+        Character character = enemy.GetComponent<Character>();
+    
+        MMPathMovement pathMovement = enemy.GetComponent<MMPathMovement>();
+    
+        if (pathMovement != null)
+        {
+            // 2. Asignamos la ruta
+            pathMovement.PathElements = rutaPath.PathElements;
         
-        // 3. Forzamos la inicialización manual
-        pathMovement.Initialization(); 
-    }
+            // 3. Forzamos la inicialización manual
+            pathMovement.Initialization(); 
+        }
 
-    // 4. IMPORTANTE: Si es un Character de More Mountains, inicialízalo
-    if (character != null)
-    {
-        character.SetPlayerID("Enemy"); // O el ID que uses
+        // 4. IMPORTANTE: Si es un Character de More Mountains, inicialízalo
+        if (character != null)
+        {
+            character.SetPlayerID("Enemy"); // O el ID que uses
+        }
     }
-}
 }

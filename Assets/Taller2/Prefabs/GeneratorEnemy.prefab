@@ -17,8 +17,9 @@ GameObject:
   - component: {fileID: 7798329117005155251}
   - component: {fileID: -5348549944879492875}
   - component: {fileID: -742174504590446054}
+  - component: {fileID: 5179065638520469670}
   m_Layer: 13
-  m_Name: Enemy
+  m_Name: GeneratorEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +59,7 @@ MonoBehaviour:
   - PathElementPosition: {x: 0, y: 0, z: 0}
     Delay: 0
   AlignmentMode: 0
-  MovementSpeed: 3
+  MovementSpeed: 1
   AccelerationType: 0
   Acceleration:
     serializedVersion: 2
@@ -151,7 +152,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8, y: 0.8}
+    oldSize: {x: 1.5625, y: 1.3125}
     newSize: {x: 0.8, y: 0.8}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -171,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 605da1f57c674ac468d3237785cb8f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 100
+  maxHealth: 200
 --- !u!114 &-7987862841920567561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,7 +318,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 20
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300004, guid: e8e3b7691aa7ca7458f64e04cb4830bf, type: 3}
+  m_Sprite: {fileID: 21300006, guid: 082c310ac59e31e4886d543523aa015e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -327,6 +328,22 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5179065638520469670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417702652816974691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c46f7836059fbff42bedd4b1ff0348cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Generador
+  enemyPrefab: {fileID: 1417702652816974691, guid: 41274d1bc45eebe41ac9413d08a7929f,
+    type: 3}
+  spawnInterval: 0.5
+  waveManager: {fileID: 0}
 --- !u!1 &5318162324823165396
 GameObject:
   m_ObjectHideFlags: 0
