@@ -40745,6 +40745,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torre
       objectReference: {fileID: 0}
+    - target: {fileID: 7702496763856905299, guid: a96eb62b79cf1b845a56b31ee70b53cf,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 422432363, guid: 5654853cb4ee8c5468b63d36eff46dc9,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
